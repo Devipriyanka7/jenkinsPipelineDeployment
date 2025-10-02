@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools{
+        maven 'mymaven'
+    }
+    stages {
+        stage('code') {
+            steps {
+                git 'https://github.com/Devipriyanka7/one.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage('Artifact Push') {
+            steps {
+               nexusArtifactUploader artifacts: [[artifactId: 'myweb', classifier: '', file: 'target/myweb-8.6.12.war', type: 'war']], credentialsId: 'nexusserver', groupId: 'in.javahome', nexusUrl: '52.90.125.196:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'myrepo', version: '8.6.12'
+            }
+        }
+         stage('Deploy') {
+            steps {
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcatcred', path: '', url: 'http://44.222.212.10:8080')], contextPath: 'swiggy', war: 'target/*.war'
+            }
+        }
+    }
+    
+}
