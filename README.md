@@ -54,13 +54,18 @@ Install Nexus
 
 Jenkins runs on http://<Jenkins_Public_IP>:8080
 
+plugins need to install :
+ 1)pipeline syntax 
+ 2)deploy to container
+ 3) nexus artifact uploader
+
 Create a Pipeline Job in Jenkins UI
 
 Jenkinsfile (jenkins/Jenkinsfile) will:
 
 Pull code from GitHub (master branch)
 
-Build package (example: Maven/Gradle)
+Build package (example: Maven)
 
 Push built artifact to Nexus repository
 
@@ -72,9 +77,9 @@ In Nexus (http://<NEXUS_PUBLIC_IP>:8081)
 
 Create a hosted Maven repo (or raw repo depending on artifact)
 
-Push artifacts there via Jenkins pipeline
+Push artifacts there via Jenkins pipeline ( use pipline syntax) 
 
 
 ✅ Step 5: Deployment to Tomcat
 
-Jenkins pipeline will handle deployment automatically# jenkinsPipelineDeployment
+Jenkins pipeline will handle deployment automatically 
